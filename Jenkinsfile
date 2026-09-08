@@ -21,7 +21,6 @@ pipeline {
             steps {
                 echo 'Testing Docker image...'
                 sh 'docker run --rm task3-python-app:latest'
-		sh 'exit 1'
             }
         }
     }
