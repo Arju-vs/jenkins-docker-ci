@@ -31,8 +31,20 @@ pipeline {
         }
 
         failure {
-            echo 'CI Pipeline FAILED!'
-            // Email/Slack notification will be configured later
+            echo 'CI Pipeline FAILED! Sending email notification...'
+
+            emailext(
+                subject: "Jenkins FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: """Build failed.
+
+Job: ${env.JOB_NAME}
+Build Number: #${env.BUILD_NUMBER}
+Build URL: ${env.BUILD_URL}
+
+Please check the Jenkins console output for details.
+""",
+                to: 'arjunsaseendran2@gmail.com'
+            )
         }
 
         always {
